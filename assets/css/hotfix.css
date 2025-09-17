@@ -1,0 +1,121 @@
+/* ========================================================================
+   CMMS/MES — HOTFIX (typografia + filtry + nagłówki kart)
+   Ładuj TEN plik NA SAMYM KOŃCU, po wszystkich pozostałych CSS.
+   ===================================================================== */
+
+/* 1) Typografia bazowa – przywrócenie czytelności */
+body {
+  font-size: 14px !important;   /* wcześniej spadło do 12px */
+  line-height: 1.45 !important; /* wcześniej 1.00 */
+  font-family: var(--font-ui, 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif) !important;
+}
+
+/* 2) Nie przycinaj zawartości w nagłówkach i toolbarach */
+.page-header,
+.card-header,
+.table-toolbar,
+.body-header {
+  overflow: visible !important;
+  min-width: 0 !important;
+}
+
+/* 3) Karty — bez nadmiernych margin/paddingów z innych reguł */
+.card {
+  border-radius: 16px;
+  padding: 1.25rem; /* lekko mniej niż 1.5rem, żeby było „luźniej” na mniejszych */
+}
+
+/* 4) PANEL FILTRÓW — jeden, spójny zestaw reguł o wysokiej specyficzności  */
+/*    (łapie zarówno .filter-inline jak i to samo w .card-header / .body-header) */
+.card-header .filter-inline,
+.body-header .filter-inline,
+.table-toolbar .filter-inline,
+.filter-inline {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: flex-end !important;
+  gap: 10px 12px !important;
+  min-width: 0 !important;
+}
+
+/* pola: mogą rosnąć/kurczyć się, niech nie trzymają sztywnego minimum */
+.card-header .filter-inline .field,
+.body-header .filter-inline .field,
+.table-toolbar .filter-inline .field,
+.filter-inline .field {
+  flex: 1 1 240px !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+.card-header .filter-inline .field input,
+.card-header .filter-inline .field select,
+.body-header .filter-inline .field input,
+.body-header .filter-inline .field select,
+.table-toolbar .filter-inline .field input,
+.table-toolbar .filter-inline .field select,
+.filter-inline .field input,
+.filter-inline .field select {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* blok akcji (z „Filtruj”) — pcha się do prawej na szerokich, łamie na wąskich */
+.card-header .filter-inline .filter-actions,
+.body-header .filter-inline .filter-actions,
+.table-toolbar .filter-inline .filter-actions,
+.filter-inline .filter-actions {
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+}
+
+/* średnie szerokości: jeśli brakuje miejsca, przenieś akcje niżej */
+@media (max-width: 1024px) {
+  .card-header .filter-inline .filter-actions,
+  .body-header .filter-inline .filter-actions,
+  .table-toolbar .filter-inline .filter-actions,
+  .filter-inline .filter-actions {
+    flex: 1 1 100% !important;
+    margin-left: 0 !important;
+  }
+}
+
+/* wąskie: wszystko w kolumnie, „Filtruj” na 100% szerokości */
+@media (max-width: 640px) {
+  .card-header .filter-inline,
+  .body-header .filter-inline,
+  .table-toolbar .filter-inline,
+  .filter-inline {
+    align-items: stretch !important;
+  }
+
+  .card-header .filter-inline .field,
+  .body-header .filter-inline .field,
+  .table-toolbar .filter-inline .field,
+  .filter-inline .field,
+  .card-header .filter-inline .filter-actions,
+  .body-header .filter-inline .filter-actions,
+  .table-toolbar .filter-inline .filter-actions,
+  .filter-inline .filter-actions {
+    flex: 1 1 100% !important;
+    margin-left: 0 !important;
+  }
+
+  .card-header .filter-inline .filter-actions .btn,
+  .body-header .filter-inline .filter-actions .btn,
+  .table-toolbar .filter-inline .filter-actions .btn,
+  .filter-inline .filter-actions .btn {
+    width: 100% !important;
+  }
+}
+
+/* 5) Przyciski mają dziedziczyć font (spójność małych wariantów) */
+button, .btn, .btn-sm, .btn-lg, input, select, textarea {
+  font-family: inherit !important;
+}
+
+/* 6) (opcjonalnie) zmniejsz minimalną szerokość tabeli, żeby nie pchała układu */
+.table { min-width: 720px; } /* było 800px — mniej poziomego scrolla na mniejszych */

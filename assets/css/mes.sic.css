@@ -1,0 +1,14 @@
+:root{
+  --sic-green:#16a34a; --sic-yellow:#eab308; --sic-red:#dc2626;
+}
+.badge.sic-green{ background:var(--sic-green); color:#fff; }
+.badge.sic-yellow{ background:var(--sic-yellow); color:#111; }
+.badge.sic-red{ background:var(--sic-red); color:#fff; }
+
+.kpi .kpi-title{ font-size:.85rem; color:#666; margin-bottom:.25rem; }
+.kpi .kpi-value{ font-size:1.25rem; font-weight:700; }
+
+.modal{ display:none; }
+.modal.open{ display:block; }
+.hidden{ display:none; }
+

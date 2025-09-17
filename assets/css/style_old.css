@@ -1,0 +1,680 @@
+/* ===== style.css v2 – CMMS/MES base ===================================================
+   ZASADA: nie nadpisuj poniższych klas lokalnie, tylko rozszerzaj modyfikatorami (.is-*, .has-*)
+   ================================================================================ */
+
+/* =========== 1) TOKENS / DESIGN SYSTEM ========================================= */
+:root {
+  /* Kolory */
+  --color-primary: #e30613;
+  --color-secondary: #6c757d;
+  --color-light: #f8f9fa;
+  --color-dark: #343a40;
+  --color-white: #ffffff;
+  --color-border: #dee2e6;
+
+  /* Promienie */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+
+  /* Odstępy */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  /* Cienie i Z-indexy */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md: 0 2px 4px rgba(0,0,0,.08);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,.12);
+
+  --z-topbar: 1001;
+  --z-sidebar: 1000;
+  --z-modal: 9999;
+}
+
+/* =========== 2) RESET / BASE ==================================================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { min-height: 100%; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  line-height: 1.4;
+}
+
+/* Linki */
+a { color: #007bff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Widoczność focus – dostępność */
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+/* Redukcja animacji (WCAG) */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* =========== 3) LAYOUT ========================================================== */
+.main-content {
+  flex-grow: 1;
+  padding: var(--space-5);
+  overflow-x: auto;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  padding: 20px;
+  flex-shrink: 0;
+}
+.sidebar h2 { font-size: 18px; margin-bottom: 20px; }
+.sidebar ul { list-style: none; padding-left: 0; }
+.sidebar li { margin-bottom: 10px; }
+.sidebar a { color: var(--color-white); display: block; padding: 6px 8px; border-radius: var(--radius-sm); }
+.sidebar a:hover { background-color: rgba(255,255,255,.1); }
+.sidebar a.active { background-color: rgba(255,255,255,.15); font-weight: 600; }
+
+/* Submenu (płynne) */
+.sidebar .menu-toggle { font-weight: 700; font-size: 15px; margin-top: 12px; position: relative; }
+.sidebar .menu-toggle::after { content: "▸"; position: absolute; right: 0; transition: transform .3s ease; }
+.sidebar .has-submenu.open > .menu-toggle::after { transform: rotate(90deg); }
+.sidebar .submenu {
+  max-height: 0; opacity: 0; overflow: hidden; transform: translateY(-5px);
+  transition: max-height .3s ease, opacity .3s ease, transform .3s ease;
+  padding-left: 20px; margin-top: 8px; pointer-events: none;
+}
+.sidebar .has-submenu.open > .submenu { max-height: 500px; opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+/* Topbar (mobile) */
+.topbar {
+  display: none;
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 10px 15px;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0;
+  z-index: var(--z-topbar);
+}
+.topbar-title { font-weight: 700; font-size: 16px; }
+.burger-toggle { display: none; background: none; border: 0; color: inherit; font-size: 24px; cursor: pointer; }
+
+/* =========== 4) KOMPONENTY UI =================================================== */
+/* 4.1 Buttons – jedna baza + modyfikatory */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 14px; border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background: var(--color-border); color: var(--color-dark);
+  text-decoration: none; font-weight: 500; cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+  white-space: nowrap;
+}
+.btn:hover { background: #cfd4da; }
+.btn--primary { background: var(--color-primary); color: var(--color-white); }
+.btn--primary:hover { background: #c40010; }
+.btn--secondary { background: var(--color-secondary); color: var(--color-white); }
+.btn--danger { background: #d33; color: #fff; }
+.btn--sm { padding: 6px 10px; font-size: 13px; }
+.btn-icon { font-size: 18px; }
+
+/* 4.2 Grupa przycisków i nagłówek strony */
+.page-header {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+.btn-group { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* 4.3 Cards */
+.card {
+  background: #fff; padding: var(--space-6);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
+  width: 100%; max-width: 520px; margin: 0 auto;
+}
+.card h2 { margin-top: 0; }
+
+/* 4.4 Formularze – spójne wejścia */
+input, select, textarea {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  background: var(--color-white);
+  font-size: 14px;
+  accent-color: var(--color-primary);
+}
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: none; border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(227,6,19,.2);
+}
+.form-grid label, .form-panel label { display: block; font-weight: 500; margin-bottom: 5px; color: var(--color-dark); }
+.form-grid input[type="text"],
+.form-grid input[type="email"],
+.form-grid input[type="password"],
+.form-grid input[type="number"],
+.form-grid select,
+.form-grid textarea { width: 100%; min-width: 250px; }
+.form-actions { display: flex; gap: 10px; justify-content: flex-start; margin-top: 30px; }
+
+/* 4.5 Tabele */
+.table-wrapper {
+  width: 100%; overflow-x: auto; margin-top: var(--space-5);
+  background: var(--color-white); border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
+}
+.table {
+  width: 100%; min-width: 800px; border-collapse: collapse; background: var(--color-white);
+}
+.table th, .table td { padding: 12px 16px; border-bottom: 1px solid var(--color-border); text-align: left; vertical-align: middle; }
+.table th {
+  background: #f6f8fa; color: var(--color-dark);
+  font-weight: 600; text-transform: uppercase; font-size: 13px; letter-spacing: .03em;
+}
+.table tr:last-child td { border-bottom: 0; }
+
+/* 4.6 Breadcrumbs i statusy */
+.breadcrumb { font-size: 14px; margin-bottom: var(--space-4); color: #6c757d; }
+.breadcrumb a { color: #007bff; }
+.breadcrumb span { color: #212529; font-weight: 500; }
+.error { color: #d33; font-weight: 700; margin-bottom: 10px; }
+
+/* 4.7 Modal – jedna implementacja */
+.modal {
+  position: fixed; inset: 0; z-index: var(--z-modal);
+  display: none; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.6);
+}
+.modal.show, .modal[open] { display: flex; }
+.modal-content {
+  background: var(--color-white); padding: var(--space-6);
+  border-radius: var(--radius-lg); width: min(600px, 90vw);
+  box-shadow: var(--shadow-lg);
+}
+.modal-actions { margin-top: var(--space-4); display: flex; gap: var(--space-3); justify-content: flex-end; }
+
+/* 4.8 Pasek narzędzi / filtry (opcjonalnie) */
+.toolbar { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
+.filter-bar { display: flex; align-items: center; gap: 10px; }
+.filter-bar label { font-weight: 700; }
+.form-select {
+  padding: 5px 10px; border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm); background: var(--color-white);
+  font-size: 14px; color: var(--color-dark);
+}
+
+/* 4.9 Gridy pomocnicze */
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 20px; }
+.form-panel {
+  display: grid; grid-template-columns: 1fr; gap: 16px;
+  background: #fff; padding: 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
+  max-width: 500px; margin-top: 20px;
+}
+
+/* 4.10 Search bar */
+.search-bar input {
+  padding: 8px 12px; border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border); width: 100%; max-width: 300px; font-size: 14px;
+}
+
+/* =========== 5) DRZEWO STRUKTURY =============================================== */
+.tree-wrapper ol { list-style: none; padding-left: 20px; margin: 0; }
+.tree-wrapper li { width: 100%; }
+
+.tree-node-wrapper {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 10px 14px; background: #fff; border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); margin: 6px 0; width: 100%; box-sizing: border-box;
+}
+.drag-handle { cursor: grab; color: #888; margin-right: 10px; width: 20px; text-align: center; flex-shrink: 0; }
+.toggle-node { cursor: pointer; margin-right: 8px; font-weight: 700; color: var(--color-primary); }
+
+.node-name { flex: 1; font-weight: 500; color: #333; }
+.node-subname { font-size: 10px; color: #888; font-style: italic; margin-left: 4px; }
+.node-status { color: green; font-size: 18px; padding-right: 5px; }
+.node-actions { display: inline-flex; gap: 6px; text-decoration: none; }
+
+.placeholder {
+  background: #f0f0f0; border: 2px dashed #aaa; height: 38px;
+  margin: 4px 0; border-radius: var(--radius-md);
+}
+
+/* Szybkie statusy */
+.status-ok { color: #0a7a0a; font-weight: 700; }
+.status-x { color: #d33; font-weight: 700; }
+
+/* =========== 6) LOGIN =========================================================== */
+.login-container {
+  max-width: 360px; margin: 100px auto; padding: 20px;
+  background: var(--color-white); border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md); border-radius: var(--radius-md);
+}
+.login-container h2 { text-align: center; margin-bottom: 20px; }
+.login-container input { width: 100%; margin-bottom: 10px; }
+.login-container button { width: 100%; }
+.login-error {
+  background: #ffe5e5; color: #a10000;
+  padding: 10px; border-radius: var(--radius-sm); margin-bottom: 10px; text-align: center;
+}
+
+/* =========== 7) UTILITIES ======================================================= */
+.hidden { display: none !important; }
+
+/* =========== 8) RESPONSYWNOŚĆ ================================================== */
+@media (max-width: 768px) {
+  body { flex-direction: column; }
+  .topbar { display: flex; }
+  .burger-toggle { display: block; }
+
+  .sidebar {
+    position: absolute; top: 50px; left: 0; z-index: var(--z-sidebar); width: 100%;
+  }
+  .sidebar:not(.sidebar-open) { display: none; }
+
+  .main-content { padding-top: 60px; padding-left: 10px; padding-right: 10px; }
+  .page-header { flex-direction: column; align-items: flex-start; }
+  .page-header .btn { width: 100%; text-align: center; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .login-container { margin: 50px 10px; }
+}
+
+/* === CMMS: Modal (slide-in) === */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.35);
+  display: none;
+  z-index: 1000;
+}
+.modal-backdrop.open { display: block; }
+.modal-panel {
+  position: absolute; right: 0; top: 0;
+  height: 100%; width: min(520px, 100%);
+  background: var(--color-white);
+  box-shadow: -10px 0 30px rgba(0,0,0,.15);
+  display: flex; flex-direction: column;
+}
+.modal-header, .modal-footer {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+.modal-footer {
+  border-top: 1px solid var(--color-border);
+  border-bottom: 0;
+  margin-top: auto;
+}
+.modal-body { padding: 12px 16px; overflow: auto; }
+.modal-close {
+  border: 0; background: transparent; cursor: pointer;
+  font-size: 22px; line-height: 1;
+}
+
+/* === CMMS: Drzewo wyboru zasobu === */
+.tree { font-size: 14px; line-height: 1.4; }
+.tree ul { list-style: none; margin: 0; padding-left: 18px; }
+.tree li { margin: 2px 0; }
+.tree .node { display: flex; align-items: center; gap: 6px; }
+.tree .toggle {
+  width: 22px; height: 22px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; background: var(--color-white);
+}
+.tree .toggle[aria-expanded="false"]::after { content: "+"; }
+.tree .toggle[aria-expanded="true"]::after  { content: "–"; }
+.tree .label {
+  cursor: pointer; padding: 2px 6px; border-radius: 6px;
+}
+.tree .label.selected { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.tree .badge {
+  font-size: 11px; padding: 0 6px;
+  border-radius: 999px; border: 1px solid var(--color-border);
+}
+
+/* === (opcjonalnie) Debug JSON w modalu === */
+.json-debug { margin-top: 10px; }
+.json-pre {
+  max-height: 40vh; overflow: auto;
+  padding: 8px; border: 1px solid var(--color-border); border-radius: 8px;
+  background: #fafafa;
+  font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre;
+}
+
+/* Util */
+.hidden { display: none !important; }
+
+/* Status messages */
+.status { padding: 8px 10px; border-radius: 8px; margin-top: 10px; font-size: 13px; }
+.status.info   { background: #f0f5ff; border: 1px solid #c6d4ff; }
+.status.danger { background: #fff0f0; border: 1px solid #ffc2c2; }
+
+/* Modal (slide-in) – komponent wspólny */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.35); display: none; z-index: 1000; }
+.modal-backdrop.open { display: block; }
+.modal-panel { position: absolute; right: 0; top: 0; height: 100%; width: min(520px, 100%); background: var(--color-white); box-shadow: -10px 0 30px rgba(0,0,0,.15); display:flex; flex-direction:column; }
+.modal-header, .modal-footer { padding: 12px 16px; border-bottom: 1px solid var(--color-border); }
+.modal-footer { border-top: 1px solid var(--color-border); border-bottom: 0; margin-top: auto; }
+.modal-close { border: 0; background: transparent; cursor: pointer; font-size: 22px; line-height: 1; }
+.tree-modal__body { padding: 12px 16px; overflow: auto; }
+
+/* Drzewo wyboru zasobu – komponent wspólny */
+.tree { font-size: 14px; line-height: 1.4; }
+.tree ul { list-style: none; margin: 0; padding-left: 18px; }
+.tree li { margin: 2px 0; }
+.tree .node { display: flex; align-items: center; gap: 6px; }
+.tree .toggle { width: 22px; height: 22px; border: 1px solid var(--color-border); border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; background: var(--color-white); }
+.tree .toggle[aria-expanded="false"]::after { content: "+"; }
+.tree .toggle[aria-expanded="true"]::after  { content: "–"; }
+.tree .label { cursor: pointer; padding: 2px 6px; border-radius: 6px; }
+.tree .label.selected { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.tree .badge { font-size: 11px; padding: 0 6px; border-radius: 999px; border: 1px solid var(--color-border); }
+
+
+/*
+.chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--chip, #e2e8f0);
+  color: #111827;
+  font-size: 12px;
+  line-height: 20px;
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+.chip{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--chip,#e2e8f0);color:#111827;font-size:12px;line-height:20px;border:1px solid rgba(0,0,0,.08)}
+.badge{display:inline-block;padding:2px 6px;border-radius:6px;background:#eef2ff;border:1px solid #c7d2fe;font-size:11px}
+.list{margin:0;padding-left:16px}
+*/
+
+/* ---------- ticket: layout & spacing ---------- */
+.ticket-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px 24px;
+}
+.ticket-meta > div {
+  padding: 10px 0 12px;
+  border-bottom: 1px solid var(--color-border, #e5e7eb);
+}
+.ticket-meta > div:last-child { border-bottom: 0; }
+.ticket-meta .muted {
+  font-size: 12px;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--text-muted, #64748b);
+  margin-bottom: 4px;
+}
+
+/* karta o „miękkich” krawędziach i delikatnym cieniu */
+.card {
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid var(--color-border, #e5e7eb);
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 10px 24px rgba(0,0,0,.05);
+}
+.card-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border, #e5e7eb);
+  background: linear-gradient(#fff, #fafafa);
+}
+.card-content { padding: 14px 16px; }
+
+/* ---------- chip (status) ---------- */
+.chip {
+  --chip: #e2e8f0;            /* kolor z inline style zostaje – to tylko domyślka */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  border: 1px solid rgba(0,0,0,.06);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  background: #fff;
+  box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.02);
+}
+@supports (background: color-mix(in srgb, red, white)) {
+  .chip {
+    background: color-mix(in srgb, var(--chip) 18%, #fff);
+    border-color: color-mix(in srgb, var(--chip) 35%, #0000);
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--chip) 25%, #0000);
+  }
+}
+
+/* małe plakietki używane w modalu */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border, #e5e7eb);
+  background: #f8fafc;
+  color: #475569;
+}
+
+/* ---------- tabela historii ---------- */
+.table th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--text-muted, #64748b);
+}
+.table td, .table th { padding: 10px 12px; vertical-align: top; }
+.table tbody tr:hover { background: #f8fafc; }
+.table td:first-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.table .chip { padding: 4px 10px; } /* w tabeli trochę mniejszy chip */
+
+/* ---------- przyciski & drobne utility ---------- */
+.btn { border-radius: 12px; }
+.btn-light { background:#f8fafc; border:1px solid var(--color-border,#e5e7eb); }
+.inline { display: inline-flex; align-items: center; gap: 8px; }
+.muted { color: var(--text-muted, #64748b); }
+
+/* ---------- modal (pasuje do reszty) ---------- */
+.modal-backdrop { background: rgba(15, 23, 42, .35); }
+.modal-panel { border-left: 1px solid var(--color-border, #e5e7eb); }
+.modal-header { background: linear-gradient(#fff, #fafafa); }
+
+/* responsywne marginesy wokół sekcji */
+@media (max-width: 720px) {
+  .card { border-radius: 12px; }
+  .card-content, .card-header { padding: 12px; }
+}
+
+/* def-grid: schludna „karta danych” */
+.def-grid {
+  display: grid;
+  grid-template-columns: minmax(160px, 240px) 1fr;
+  gap: 8px 24px;
+  align-items: start;
+}
+.def-grid dt {
+  margin: 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--text-muted, #64748b);
+}
+.def-grid dd {
+  margin: 0 0 12px 0;
+}
+.def-grid hr {
+  grid-column: 1 / -1;
+  border: 0;
+  border-top: 1px solid var(--color-border, #e5e7eb);
+  margin: 4px 0 8px;
+}
+
+/* typeahead (datalist) – nic nie trzeba, ale możemy ukryć strzałki number */
+input[type=number].input::-webkit-outer-spin-button,
+input[type=number].input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number].input { -moz-appearance: textfield; }
+
+/* === FIX: spójny font w modalu i polach formularzy === */
+:root{
+  --font-ui: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+}
+.modal-panel,
+.modal-panel * {
+  font-family: var(--font-ui) !important;
+}
+input, textarea, select, .input {
+  font-family: var(--font-ui);
+}
+
+/* === FIX: jedna, docelowa wersja chipów (status) === */
+.chip {
+  --chip: #e2e8f0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  border: 1px solid rgba(0,0,0,.06);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  background: #fff;
+  box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.02);
+}
+@supports (background: color-mix(in srgb, red, white)) {
+  .chip {
+    background: color-mix(in srgb, var(--chip) 18%, #fff);
+    border-color: color-mix(in srgb, var(--chip) 35%, #0000);
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--chip) 25%, #0000);
+  }
+}
+
+/* === UX: większe pole komentarza w modalu „Zmień status” === */
+#statusModal .modal-body #stComment {
+  min-height: 160px;      /* zwiększ w razie potrzeby do 200–240px */
+  resize: vertical;       /* pozwól użytkownikowi rozciągać */
+}
+
+/* (opcjonalnie) wyrównanie label + podpowiedzi przy assignee */
+#statusModal #stExtra label { margin-top: 10px; }
+#statusModal #assigneeHint { display: inline-block; margin-left: 8px; color: #64748b; }
+
+/* --- enforce normal text fonts inside the slide-in modal --- */
+:root{
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans",
+             "Liberation Sans", Arial, sans-serif;
+}
+#statusModal,
+#statusModal * {
+  font-family: var(--font-ui) !important;
+  font-variation-settings: normal !important; /* gdyby trafiło na variable-icons */
+}
+
+/* niektóre przeglądarki inaczej traktują opcje selektów */
+#statusModal select,
+#statusModal option {
+  font-family: var(--font-ui) !important;
+}
+
+/* większe pole komentarza – UX */
+#statusModal #stComment {
+  min-height: 200px;
+  resize: vertical;
+}
+
+/* enforce UI font inside slide-in modal (also 3rd-party widgets) */
+#statusModal,
+#statusModal * ,
+#statusModal select,
+#statusModal option,
+#statusModal .muted,
+#statusModal .input {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif !important;
+}
+
+/* jeśli użyjemy Tom Select/Choices (poniżej), też przymuś font */
+#statusModal .ts-control,
+#statusModal .ts-dropdown,
+#statusModal .choices,
+#statusModal .choices__inner,
+#statusModal .choices__list--dropdown,
+#statusModal .choices__item {
+  font-family: inherit !important;
+}
+
+/* wygodniejsze pole komentarza */
+#statusModal #stComment { min-height: 200px; resize: vertical; }
+
+/* Select2 w modalach – taka sama czcionka jak reszta UI */
+#statusModal .select2-container { font-family: inherit; }
+#statusModal .select2-container--default .select2-selection--single {
+  height: 38px; border-radius: 8px; border: 1px solid var(--color-border);
+}
+#statusModal .select2-selection__rendered { line-height: 36px; }
+#statusModal .select2-selection__arrow { height: 36px; }
+
+
+/* Topbar */
+.topbar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 16px; background:var(--color-white); border-bottom:1px solid var(--color-border); position:sticky; top:0; z-index:20; }
+.burger { display:inline-flex; flex-direction:column; gap:3px; background:transparent; border:0; cursor:pointer; }
+.burger-line { width:22px; height:2px; background:var(--color-dark); display:block; }
+.topbar-title { display:flex; flex-direction:column; gap:4px; }
+.page-title { font-size:18px; line-height:1.2; }
+.user-chip { font-size:13px; padding:4px 8px; background:var(--color-light); border:1px solid var(--color-border); border-radius:12px; }
+
+/* Layout */
+.app-layout { display:flex; min-height:calc(100vh - 52px); }
+.sidebar { width:240px; background:var(--color-dark); color:var(--color-white); padding:16px; }
+.sidebar .brand { color:#fff; text-decoration:none; font-weight:600; display:block; margin-bottom:12px; }
+.sidebar-nav { display:flex; flex-direction:column; gap:4px; }
+.nav-group { margin-top:12px; }
+.nav-group-title { font-size:12px; color:#c9c9c9; text-transform:uppercase; margin:8px 0; }
+.nav-item { display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius:8px; color:#eee; text-decoration:none; }
+.nav-item:hover { background:rgba(255,255,255,0.06); }
+.nav-item.is-active { background:rgba(255,255,255,0.12); }
+
+.content { flex:1; padding:16px; }
+
+/* Karty / przyciski / tabele */
+.card { background:#fff; border:1px solid var(--color-border); border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
+.card-header { padding:12px 16px; border-bottom:1px solid var(--color-border); font-weight:600; }
+.card-body { padding:16px; }
+.page-actions { display:flex; gap:8px; margin-bottom:12px; }
+
+.btn { display:inline-block; padding:8px 12px; border:1px solid var(--color-border); background:#f6f6f6; border-radius:10px; text-decoration:none; color:inherit; }
+.btn:hover { background:#eee; }
+.btn-primary { background:var(--color-primary); color:#fff; border-color:var(--color-primary); }
+.btn-primary:hover { filter:brightness(0.95); }
+.btn-secondary { background:#e9ecef; }
+
+.table-wrapper { overflow-x:auto; border:1px solid var(--color-border); border-radius:10px; }
+.table-wrapper table { width:100%; border-collapse:collapse; }
+.table-wrapper th, .table-wrapper td { padding:8px 10px; border-bottom:1px solid var(--color-border); }
+
+/* Błędy */
+.error-page { display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--color-light); }
+.error-card { background:#fff; padding:24px; border:1px solid var(--color-border); border-radius:12px; text-align:center; }
+
+
+/* =========== 9) (Opcjonalnie) Dark mode – włącz kiedy będziesz gotów ===========
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-light: #111315;
+    --color-dark: #e6e6e6;
+    --color-border: #2b2e31;
+    --color-white: #1a1d1f;
+  }
+  body { background: var(--color-light); color: var(--color-dark); }
+  .sidebar { background: #0e1113; }
+  .table-wrapper, .card, .modal-content, .form-panel { background: var(--color-white); border-color: var(--color-border); }
+  .table th { background: #171a1c; }
+}
+
+

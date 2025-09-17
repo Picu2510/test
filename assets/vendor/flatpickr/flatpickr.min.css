@@ -1,0 +1,5 @@
+/*! flatpickr-lite (compat stub) — NOT the original flatpickr! */
+.fp-lite{display:inline-flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.fp-lite input[type="date"], .fp-lite input[type="time"]{padding:.4rem .5rem;border:1px solid #d0d7de;border-radius:6px;font:inherit}
+.fp-lite__clear{appearance:none;border:1px solid #d0d7de;background:#f6f8fa;border-radius:6px;padding:.35rem .6rem;cursor:pointer}
+.fp-lite__clear:hover{background:#eef1f4}

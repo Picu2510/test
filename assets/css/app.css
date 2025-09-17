@@ -1,0 +1,19 @@
+/* toolbar filtrów w listach */
+.filter-bar{
+  display:grid;
+  grid-template-columns: minmax(240px, 420px) auto auto;
+  gap:12px;
+  align-items:end;           /* wyrównanie do dołu pól */
+  margin-bottom:1rem;
+}
+.filter-actions{ display:flex; gap:8px; align-items:center; }
+.checkbox--inline{ display:flex; align-items:center; gap:.5rem; height:40px; }
+
+/* lekko ciaśniejszy label nad selectem */
+.field--inline .field__label{ margin-bottom:.25rem; }
+
+/* responsywnie pod siebie */
+@media (max-width: 900px){
+  .filter-bar{ grid-template-columns: 1fr; align-items:stretch; }
+  .checkbox--inline{ height:auto; }
+}

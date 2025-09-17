@@ -1,0 +1,16 @@
+/* LIGHT: prosty układ galerii i węższa kolumna */
+.content--light .page-narrow { max-width: 720px; margin-inline: auto; }
+.light-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 8px;
+}
+.light-gallery img { width: 100%; height: 96px; object-fit: cover; border-radius: 8px; }
+.light-gallery .doc {
+  display: block; padding: 10px; border: 1px solid var(--color-border, #dee2e6);
+  border-radius: 8px; text-align: center;
+}
+.grid--2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.btn-lg { padding: 14px 18px; font-size: 1.05rem; border-radius: 12px; }
+.badge { background: #eef; padding: 4px 8px; border-radius: 999px; }
+@media (max-width: 520px){ .light-gallery{ grid-template-columns: repeat(2,1fr);} }

@@ -1,0 +1,100 @@
+/* ===== STRUCTURE TREE – compact pill look with depth indent ===== */
+
+/* body sekcji drzewka przewijalny, trochę oddechu */
+.tree-modal__body{
+  display:flex; flex-direction:column; gap:10px;
+  max-height:calc(100vh - 140px); overflow:auto;
+  /* było: padding:10px 12px 12px; */
+  padding: calc(10px + var(--headH, 0px)) 12px 12px; /* ← dodajemy przestrzeń o wysokość headera */
+}
+
+
+/* sticky search – wysokość nagłówka w zmiennej ustawia JS */
+#structSearch{
+  position: sticky;
+  top: 0;                 /* ← było top: var(--headH, 0px); */
+  z-index: 5;
+  background:#fff; border:1px solid #e5e7eb; border-radius:10px;
+  padding:8px 10px; outline:none; font-size:13px;
+}
+
+#structSearch:focus{ border-color:#94a3b8; box-shadow:0 0 0 3px rgba(148,163,184,.25); }
+
+/* podstawowe zmienne wizualne */
+#structContainer.tree{
+  --pill-border:#e5e7eb;
+  --pill-bg:#fff;
+  --pill-hover:#f8fafc;
+  --accent:#2563eb;
+  --indent:18px; /* wcięcie na poziom */
+  --fz:13px;     /* baza fontu (mniejsza) */
+}
+
+/* usuwamy kropki listy i realizujemy wcięcia przez zagnieżdżone UL */
+#structContainer ul{ list-style:none; margin:0; padding-left:0; }
+#structContainer ul ul{ padding-left:var(--indent); }
+
+/* pojedynczy wiersz węzła (cała „pigułka”) */
+#structContainer .node{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px; margin:4px 0; padding:6px 10px;
+  background:var(--pill-bg); border:1px solid var(--pill-border);
+  border-radius:12px; cursor:pointer; font-size:var(--fz);
+  transition:border-color .12s ease, box-shadow .12s ease, background .12s ease;
+}
+#structContainer .node:hover{ background:var(--pill-hover); }
+
+/* toggle +/- */
+#structContainer .toggle{
+  width:24px; height:24px; border:1px solid var(--pill-border);
+  border-radius:8px; background:#fff; display:inline-flex;
+  align-items:center; justify-content:center; flex:0 0 auto;
+  font-weight:700; font-size:14px; line-height:1; cursor:pointer;
+}
+#structContainer .toggle[aria-expanded="true"]::before{ content:"−"; }
+#structContainer .toggle[aria-expanded="false"]::before{ content:"+"; }
+#structContainer .toggle:disabled{ opacity:.5; cursor:default; }
+
+/* tytuł węzła */
+#structContainer .label{
+  font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+
+/* ID po prawej – drobny „badge” */
+#structContainer .badge{
+  flex:0 0 auto; font-size:11px; color:#334155;
+  background:#f1f5f9; border:1px solid #e5e7eb;
+  padding:3px 7px; border-radius:999px;
+}
+
+/* aktywnie wybrany węzeł – czerwona ramka */
+#structContainer .node.is-active{
+  border-color:#ef4444;
+  box-shadow:0 0 0 2px rgba(239,68,68,.28) inset;
+}
+
+/* zaznaczenie wyszukanego/klikniętego labela – delikatne tło */
+#structContainer .label.selected{
+  background:rgba(37,99,235,.12);
+  padding:2px 8px; border-radius:999px; color:#1e293b;
+}
+
+@media (max-width:600px){
+  #structContainer .badge{ display:none; }
+}
+
+/* żeby sticky search nie zasłaniał pierwszego elementu, a scroll do zaznaczonego nie chował go pod search */
+.tree-modal__body{ scroll-padding-top: var(--headH, 56px); }
+#structContainer .node{ scroll-margin-top: calc(var(--headH, 56px) + 8px); }
+
+/* czerwone oznaczenie wybranego elementu (zgodne z Twoim screenem) */
+#structContainer .label.selected{
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+  border-radius: 8px;
+  padding: 2px 6px; /* delikatny „pill” */
+}
+#structContainer .label.selected.closest .node,
+#structContainer .node:has(.label.selected){
+  border-color: #ef4444;
+}

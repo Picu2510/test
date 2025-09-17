@@ -1,0 +1,114 @@
+/* ============================================================================
+   CMMS/MES — Dark Mode (auto + data-theme="dark")
+   ========================================================================== */
+:root { color-scheme: light; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-light: #0f172a;
+    --color-dark:  #e5e7eb;
+    --color-white: #111827;
+    --color-border:#1f2937;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.45);
+    --shadow-md: 0 2px 6px rgba(0,0,0,.5);
+    --shadow-lg: 0 10px 30px rgba(0,0,0,.6);
+  }
+}
+
+/* Wymuszenie: <html data-theme="dark"> */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-light:#0f172a;
+  --color-dark:#e5e7eb;
+  --color-white:#111827;
+  --color-border:#1f2937;
+}
+
+/* Powierzchnie */
+:root[data-theme="dark"] .sidebar { background:#0b1220; color:#e5e7eb; }
+:root[data-theme="dark"] :where(.card,.tile,.details,.auth-card,.login-container,.drawer__panel) {
+  background:#0b1220; border-color:#1f2937;
+}
+:root[data-theme="dark"] .card-header {
+  background: linear-gradient(#0b1220, #111827);
+  border-color: #1f2937;
+  color: #e5e7eb;
+}
+
+/* Teksty/Linki */
+:root[data-theme="dark"] a { color: #60a5fa; }
+:root[data-theme="dark"] .breadcrumb { color: #94a3b8; }
+:root[data-theme="dark"] .breadcrumb span { color: #e5e7eb; }
+
+/* Przyciski */
+:root[data-theme="dark"] .btn {
+  background:#111827; color:#e5e7eb; border-color:#334155;
+}
+:root[data-theme="dark"] .btn:hover { background:#0f172a; border-color:#475569; }
+:root[data-theme="dark"] .btn-ghost { background:transparent; border-color:#334155; color:#cbd5e1; }
+:root[data-theme="dark"] .btn-secondary { background:#1f2937; color:#e5e7eb; border-color:#334155; }
+:root[data-theme="dark"] .btn-danger { background:var(--color-danger); color:#fff; border-color:var(--color-danger); }
+:root[data-theme="dark"] .btn-sm { background:#111827; color:#e5e7eb; border-color:#334155; }
+:root[data-theme="dark"] .btn-sm:hover { background:#0f172a; border-color:#475569; }
+
+/* Chipy / badge */
+:root[data-theme="dark"] .chip {
+  --chip:#334155;
+  background: color-mix(in srgb, var(--chip) 25%, #0b1220);
+  border-color: #334155;
+  box-shadow: none;
+  color:#e5e7eb;
+}
+:root[data-theme="dark"] .badge {
+  background:#111827; color:#cbd5e1; border-color:#334155;
+}
+
+/* Tabele */
+:root[data-theme="dark"] .table-wrapper { background:#0b1220; border-color:#1f2937; box-shadow:none; }
+:root[data-theme="dark"] .table { border-collapse: collapse; }
+:root[data-theme="dark"] .table th {
+  background:#0b1220; color:#e5e7eb; border-bottom:1px solid #1f2937;
+}
+:root[data-theme="dark"] .table td { border-bottom:1px solid #1f2937; color:#e5e7eb; }
+:root[data-theme="dark"] .table tbody tr:hover { background:#0f172a; }
+
+/* Formularze */
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] .input-wrap input {
+  background:#111827; color:#e5e7eb; border-color:#334155;
+}
+:root[data-theme="dark"] .input-wrap input:focus,
+:root[data-theme="dark"] input:focus-visible,
+:root[data-theme="dark"] select:focus-visible,
+:root[data-theme="dark"] textarea:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(227,6,19,.25);
+}
+
+/* Sekcje konfiguracyjne, summary */
+:root[data-theme="dark"] .cfg-summary {
+  background:#0b1220; border-color:#1f2937; box-shadow:none; color:#e5e7eb;
+}
+:root[data-theme="dark"] .cfg-section[open] { background:#0f172a; }
+
+/* Drzewo */
+:root[data-theme="dark"] .node { background:#0b1220; border-color:#1f2937; box-shadow:none; }
+:root[data-theme="dark"] .btn-icon { background:#111827; border-color:#334155; color:#cbd5e1; }
+:root[data-theme="dark"] .btn-icon:hover { background:#0f172a; }
+:root[data-theme="dark"] .toggle-node { background:#111827; color:#fca5a5; }
+
+/* Pasek narzędzi nad listą – bez jasnej tafli */
+:root[data-theme="dark"] .table-toolbar,
+:root[data-theme="dark"] .filter-inline,
+:root[data-theme="dark"] .body-header,
+:root[data-theme="dark"] .page-actions { background: transparent; }
+
+/* Statusy */
+:root[data-theme="dark"] .status.info   { background:#0b132a; border-color:#334155; color:#cbd5e1; }
+:root[data-theme="dark"] .status.danger { background:#2a0f12; border-color:#7f1d1d; color:#fecaca; }
+:root[data-theme="dark"] .status.warning{ background:#2b1a0a; border-color:#a16207; color:#fde68a; }
+
+/* Sidebar submenu – delikatniejszy hover */
+:root[data-theme="dark"] .submenu a:hover { background:rgba(255,255,255,.08); }

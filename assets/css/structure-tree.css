@@ -1,0 +1,134 @@
+/* Szerokość i layout nagłówka */
+.page-header-tree {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Wrapper drzewa */
+.tree-wrapper {
+  max-width: 1600px;
+  margin: 12px auto;
+}
+
+/* Lista drzewa */
+#drzewo-sortowalne ol {
+  list-style: none;
+  margin: 0;
+  padding-left: 28px;
+}
+#drzewo-sortowalne li {
+  margin: 6px 0;
+}
+
+/* Karta węzła */
+#drzewo-sortowalne .node {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  background: #fff;
+}
+
+/* Prawa sekcja (akcje) */
+#drzewo-sortowalne .node .meta {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Uchwyt D&D */
+#drzewo-sortowalne .drag-handle {
+  cursor: move;
+  user-select: none;
+  font-weight: 600;
+  opacity: .8;
+}
+
+/* Przycisk zwijania */
+#drzewo-sortowalne .toggle-node {
+  text-decoration: none;
+  color: #c33;
+  margin-right: 4px;
+} 
+
+/* Pusty „toggle” gdy brak dzieci (zamiast inline style) */
+#drzewo-sortowalne .toggle-spacer {
+  width: 18px;
+  display: inline-block;
+}
+
+/* Placeholder D&D */
+#drzewo-sortowalne .placeholder {
+  outline: 2px dashed #bbb;
+  height: 36px;
+  border-radius: 8px;
+  margin: 6px 0;
+}
+
+/* Modal – ukryty bez inline style */
+.modal.hidden {
+  display: none;
+}
+
+.page-header-tree .filter-bar {
+  margin-left: auto;
+}
+
+/* kolumna-indykator koloru */
+.tree-wrapper .node {
+  padding: 6px 8px 6px 10px;
+  margin: 2px 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 4px solid transparent; /* kolor podmienia kolory.css.php */
+  border-radius: 4px;
+}
+
+/* Mapowanie trybu kolorowania na aktywny zestaw zmiennych */
+.tree-wrapper[data-color-mode="typ"] .node { --col: var(--typ-color); --col-rgb: var(--typ-rgb); }
+.tree-wrapper[data-color-mode="mpk"] .node { --col: var(--mpk-color); --col-rgb: var(--mpk-rgb); }
+.tree-wrapper[data-color-mode="el"]  .node { --col: var(--el-color);  --col-rgb: var(--el-rgb);  }
+.tree-wrapper[data-color-mode="none"] .node { --col: transparent; --col-rgb: 0,0,0; }
+
+/* Delikatny, półprzezroczysty gradient od lewej do prawej */
+.tree-wrapper .node {
+  /* usuń ewentualne lewe bordery z wcześniejszej wersji */
+  border-left: none;
+  background-image: linear-gradient(
+    90deg,
+    rgba(var(--col-rgb, 0,0,0), .18) 0%,
+    rgba(var(--col-rgb, 0,0,0), 0) 100%
+  );
+  background-repeat: no-repeat;
+  background-origin: padding-box;
+}
+
+/* Gdy tryb = none → bez tła */
+.tree-wrapper[data-color-mode="none"] .node {
+  background-image: none;
+}
+/* kolor wg typu */
+#drzewo-sortowalne.by-typ .node {
+  --rgb: var(--typ-rgb, 0,0,0);
+  background-image: linear-gradient(90deg, rgba(var(--rgb), .10), rgba(var(--rgb), 0));
+  border-left: 3px solid rgba(var(--rgb), .35);
+}
+/* kolor wg MPK/Linii */
+#drzewo-sortowalne.by-mpk .node {
+  --rgb: var(--mpk-rgb, 0,0,0);
+  background-image: linear-gradient(90deg, rgba(var(--rgb), .10), rgba(var(--rgb), 0));
+  border-left: 3px solid rgba(var(--rgb), .35);
+}
+/* kolor wg elementu */
+#drzewo-sortowalne.by-element .node {
+  --rgb: var(--el-rgb, 0,0,0);
+  background-image: linear-gradient(90deg, rgba(var(--rgb), .10), rgba(var(--rgb), 0));
+  border-left: 3px solid rgba(var(--rgb), .35);
+}

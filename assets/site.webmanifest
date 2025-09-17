@@ -1,0 +1,21 @@
+{
+  "name": "CMMS",
+  "short_name": "CMMS",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0ea5e9",
+  "background_color": "#0ea5e9",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

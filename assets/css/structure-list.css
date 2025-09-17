@@ -1,0 +1,251 @@
+/* Kontener tylko dla listy – szeroko, bez globalnego max-width */
+.page-list-structure {
+  width: 100%;
+  max-width: none;         /* wyłącza globalne ograniczenie */
+  padding-right: 12px;
+}
+
+/* Jeśli chcesz mieć „szynę” zamiast totalnej pełnej szerokości: odkomentuj jedną z opcji poniżej  */
+/* .page-list-structure { max-width: 1400px; margin-right: 12px; } */
+/* @media (min-width: 1600px) { .page-list-structure { max-width: 1560px; } } */
+
+/* Pasek z filtrami */
+.toolbar-list .form-select {
+  min-width: 280px;      /* było 210px */
+  height: 38px;
+}
+
+.toolbar-list .form-input[type="search"] {
+  width: min(560px, 52vw);   /* było ~420px */
+  height: 38px;
+  padding-inline: 12px;
+}
+
+
+.list-table col.w-name   { width: 40%; }
+.list-table col.w-typ    { width: 18%; }
+.list-table col.w-mpk    { width: 18%; }
+.list-table col.w-el     { width: 18%; }
+.list-table col.w-active { width: 6%;  }
+.list-table col.w-actions{ width: 10%; } /* możesz zejść do 8% */
+ /* podświetlenie trafień */
+.hl {
+  background: linear-gradient(90deg, rgba(255,235,59,.6), rgba(255,235,59,.2));
+  border-radius: .25rem;
+  padding: 0 .12em;
+}
+
+/* wiersz: brak wyników */
+.tr-no-results td {
+  text-align: center;
+  color: #777;
+  padding: 14px 8px;
+  font-style: italic;
+}
+/* --- KOLORY jak w drzewo.php ------------------------------------------ */
+/* Na wierszach mamy klasy: c-typ-*, c-mpk-*, c-el-* z kolory.css.php
+   które definiują: --typ-rgb / --mpk-rgb / --el-rgb                  */
+
+.list-wrapper.by-typ    tr[class*="c-typ-"] { --rgb: var(--typ-rgb); }
+.list-wrapper.by-mpk    tr[class*="c-mpk-"] { --rgb: var(--mpk-rgb); }
+.list-wrapper.by-element tr[class*="c-el-"] { --rgb: var(--el-rgb); }
+
+/* Delikatne podświetlenie tylko w pierwszej kolumnie (jak 'node' w drzewie) */
+.list-table tbody tr .cell-name {
+  position: relative;
+  background-image: none;
+}
+
+/* Tło + pasek po lewej (kolor z --rgb) */
+.list-wrapper.by-typ    tr[class*="c-typ-"]    .cell-name,
+.list-wrapper.by-mpk    tr[class*="c-mpk-"]    .cell-name,
+.list-wrapper.by-element tr[class*="c-el-"]    .cell-name {
+  box-shadow: inset 4px 0 0 rgba(var(--rgb), .55);
+  background-image: linear-gradient(90deg, rgba(var(--rgb), .10), transparent 60%);
+  transition: background-image .15s ease;
+}
+
+/* Hover – trochę mocniej */
+.list-table tbody tr:hover .cell-name {
+  background-image: var(--hover-bg, none);
+}
+.list-wrapper.by-typ    tr[class*="c-typ-"]:hover    .cell-name,
+.list-wrapper.by-mpk    tr[class*="c-mpk-"]:hover    .cell-name,
+.list-wrapper.by-element tr[class*="c-el-"]:hover    .cell-name {
+  --hover-bg: linear-gradient(90deg, rgba(var(--rgb), .18), transparent 60%);
+}
+
+/* Gdy 'Bez kolorowania' – nic nie podmieniamy */
+.list-wrapper.by-none tr .cell-name {
+  box-shadow: none;
+  background-image: none;
+}
+
+/* --- Kolorowanie w widoku listy --- */
+
+/* Podpinamy wspólną zmienną --rgb od trybu */
+.list-wrapper.by-typ     tbody tr[class*="c-typ-"] { --rgb: var(--typ-rgb); }
+.list-wrapper.by-mpk     tbody tr[class*="c-mpk-"] { --rgb: var(--mpk-rgb); }
+.list-wrapper.by-element tbody tr[class*="c-el-"]  { --rgb: var(--el-rgb); }
+
+/* Cieniowanie w kolumnie z nazwą */
+.list-table tbody tr .col-name {
+  position: relative;
+  background-image: none;
+}
+
+.list-wrapper.by-typ     tbody tr[class*="c-typ-"] .col-name,
+.list-wrapper.by-mpk     tbody tr[class*="c-mpk-"] .col-name,
+.list-wrapper.by-element tbody tr[class*="c-el-"]  .col-name {
+  box-shadow: inset 4px 0 0 rgba(var(--rgb), .55);
+  background-image: linear-gradient(90deg, rgba(var(--rgb), .10), transparent 60%);
+  transition: background-image .15s ease, box-shadow .15s ease;
+}
+
+.list-table tbody tr:hover .col-name {
+  background-image: var(--hover-bg, none);
+}
+
+.list-wrapper.by-typ     tbody tr[class*="c-typ-"]:hover .col-name,
+.list-wrapper.by-mpk     tbody tr[class*="c-mpk-"]:hover .col-name,
+.list-wrapper.by-element tbody tr[class*="c-el-"]:hover  .col-name {
+  --hover-bg: linear-gradient(90deg, rgba(var(--rgb), .18), transparent 60%);
+}
+
+/* Drobne ułatwienia czytelności tabeli (jeśli potrzebne) */
+.list-table { width: 100%; border-collapse: collapse; }
+.list-table th, .list-table td { padding: .65rem .75rem; border-bottom: 1px solid #e5e7eb; }
+.list-table .text-right { text-align: right; }
+.list-table .text-center { text-align: center; }
+.list-wrapper { overflow-x: auto; }
+
+/* TRYB: typ */
+.list-wrapper.by-typ .list-table tbody tr td.col-name{
+  background-image: linear-gradient(90deg,
+    rgba(var(--typ-rgb, 0,0,0), 0.08),
+    rgba(var(--typ-rgb, 0,0,0), 0.0) 65%);
+}
+
+/* TRYB: mpk */
+.list-wrapper.by-mpk .list-table tbody tr td.col-name{
+  background-image: linear-gradient(90deg,
+    rgba(var(--mpk-rgb, 0,0,0), 0.08),
+    rgba(var(--mpk-rgb, 0,0,0), 0.0) 65%);
+}
+
+/* TRYB: element */
+.list-wrapper.by-element .list-table tbody tr td.col-name{
+  background-image: linear-gradient(90deg,
+    rgba(var(--el-rgb, 0,0,0), 0.08),
+    rgba(var(--el-rgb, 0,0,0), 0.0) 65%);
+}
+
+/* --- Mocniejsze podświetlenie w kolumnie "Nazwa" --- */
+.list-table td.col-name { 
+  position: relative; 
+  background-clip: padding-box; 
+}
+
+/* Typ */
+.list-wrapper.by-typ .list-table tbody tr[class*="c-typ-"] td.col-name {
+  --a: 0.38;
+  background-image: linear-gradient(90deg,
+    rgba(var(--typ-rgb), var(--a)) 0%,
+    rgba(var(--typ-rgb), 0) 60%);
+}
+.list-wrapper.by-typ .list-table tbody tr[class*="c-typ-"] td.col-name::before {
+  content: "";
+  position: absolute; inset: 0 auto 0 0; width: 4px;
+  background: rgb(var(--typ-rgb));
+  border-radius: 8px 0 0 8px;
+  opacity: 0.9;
+}
+
+/* MPK/Linia */
+.list-wrapper.by-mpk .list-table tbody tr[class*="c-mpk-"] td.col-name {
+  --a: 0.38;
+  background-image: linear-gradient(90deg,
+    rgba(var(--mpk-rgb), var(--a)) 0%,
+    rgba(var(--mpk-rgb), 0) 60%);
+}
+.list-wrapper.by-mpk .list-table tbody tr[class*="c-mpk-"] td.col-name::before {
+  content: "";
+  position: absolute; inset: 0 auto 0 0; width: 4px;
+  background: rgb(var(--mpk-rgb));
+  border-radius: 8px 0 0 8px;
+  opacity: 0.9;
+}
+
+/* Element */
+.list-wrapper.by-element .list-table tbody tr[class*="c-el-"] td.col-name {
+  --a: 0.38;
+  background-image: linear-gradient(90deg,
+    rgba(var(--el-rgb), var(--a)) 0%,
+    rgba(var(--el-rgb), 0) 60%);
+}
+.list-wrapper.by-element .list-table tbody tr[class*="c-el-"] td.col-name::before {
+  content: "";
+  position: absolute; inset: 0 auto 0 0; width: 4px;
+  background: rgb(var(--el-rgb));
+  border-radius: 8px 0 0 8px;
+  opacity: 0.9;
+}
+
+/* --- HEADER: tytuł + akcje + wyszukiwarka w jednym rzędzie --- */
+.list-header .header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap; /* wąskie ekrany mogą zawinąć */
+}
+
+.list-header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.list-header .header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.list-header .header-actions .btn,
+.list-header .header-actions .btn-primary {
+  white-space: nowrap;
+}
+
+.list-header .header-actions .header-search {
+  min-width: 280px;     /* komfortowe pole */
+  height: 36px;         /* spójne z przyciskami */
+  padding: 6px 10px;
+}
+
+/* Pasek filtrów pod spodem */
+.toolbar-list {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toolbar-list .toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* kosmetyka odstępów */
+.ml-8 { margin-left: 8px; }
+.ml-12 { margin-left: 12px; }
+
+/* kolumny szerokości (zostawiamy jak były) */
+.list-table col.w-name   { width: 34%; }
+.list-table col.w-typ    { width: 18%; }
+.list-table col.w-mpk    { width: 18%; }
+.list-table col.w-el     { width: 18%; }
+.list-table col.w-active { width: 6%;  }
+.list-table col.w-actions{ width: 6%;  }
+

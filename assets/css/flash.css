@@ -1,0 +1,46 @@
+/* Modal flash */
+.flash-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: #fff;
+  border-bottom: 3px solid transparent;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  padding: .75rem 1rem;
+  z-index: 2000;
+  transform: translateY(-100%);
+  animation: flash-in .35s ease-out forwards;
+}
+
+.flash-modal__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: .95rem;
+  font-weight: 500;
+  color: var(--color-dark, #222);
+}
+
+.flash-modal__close {
+  border: 0;
+  background: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  opacity: .7;
+}
+.flash-modal__close:hover { opacity: 1; }
+
+/* Typy */
+.flash-modal.is-success { border-color: #16a34a; }
+.flash-modal.is-info    { border-color: #0ea5e9; }
+.flash-modal.is-warning { border-color: #f59e0b; }
+.flash-modal.is-error   { border-color: #dc2626; }
+
+@keyframes flash-in {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0); }
+}
+@keyframes flash-out {
+  from { transform: translateY(0); opacity:1; }
+  to   { transform: translateY(-100%); opacity:0; }
+}
