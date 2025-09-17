@@ -1,0 +1,2 @@
+kompetencje_skale :: utf32_polish_ci
+v_cmms_ticket_last_status :: 

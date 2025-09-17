@@ -1,0 +1,10 @@
+2025-09-15T14:16:01+02:00 --- UPLOAD START ---
+2025-09-15T14:16:01+02:00 input entity_type=structure entity_id=23 typ_id=null
+2025-09-15T14:16:01+02:00 upload dir: rel=/uploads/2025/09/structure/23/ abs=/profiles/p/pi/pic/picu2510/mpietraszewski.cba.pl/uploads/2025/09/structure/23/
+2025-09-15T14:16:01+02:00 stored row id=3 rel=/uploads/2025/09/structure/23/maspex-4-0-953fa93531fa.jpg orig=Maspex 4.0.jpg
+2025-09-15T14:16:01+02:00 ERROR: audit_log(): Argument #1 ($pdo) must be of type PDO, string given, called in /profiles/p/pi/pic/picu2510/mpietraszewski.cba.pl/modules/files/upload.php on line 121
+2025-09-15T14:34:55+02:00 --- UPLOAD START ---
+2025-09-15T14:34:55+02:00 input entity_type=structure entity_id=23 typ_id=1
+2025-09-15T14:34:55+02:00 upload dir: rel=/uploads/2025/09/structure/23/ abs=/profiles/p/pi/pic/picu2510/mpietraszewski.cba.pl/uploads/2025/09/structure/23/
+2025-09-15T14:34:55+02:00 stored row id=4 rel=/uploads/2025/09/structure/23/maspex-4-0-cc8f11aef25c.jpg orig=Maspex 4.0.jpg
+2025-09-15T14:34:55+02:00 ERROR: audit_log(): Argument #1 ($pdo) must be of type PDO, string given, called in /profiles/p/pi/pic/picu2510/mpietraszewski.cba.pl/modules/files/upload.php on line 121

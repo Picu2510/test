@@ -1,0 +1,63 @@
+safe_redirect
+  - /actions/set_lang.php
+  - /includes/init.php
+  - /index.php
+  - /login.php
+  - /modules/administracja/uzytkownicy/add.php
+  - /modules/administracja/uzytkownicy/delete.php
+  - /modules/administracja/uzytkownicy/edit.php
+  - /modules/administracja/uzytkownicy/list.php
+  - /modules/administracja/uzytkownicy/save_permissions.php
+  - /modules/administracja/uzytkownicy/toggle_active.php
+  - /modules/cmms/konfiguracja/grupy/delete.php
+  - /modules/cmms/konfiguracja/grupy/edit.php
+  - /modules/cmms/konfiguracja/zgloszenia_podtyp/delete.php
+  - /modules/cmms/konfiguracja/zgloszenia_podtyp/edit.php
+  - /modules/cmms/konfiguracja/zgloszenia_typ/delete.php
+  - /modules/cmms/konfiguracja/zgloszenia_typ/edit.php
+  - /modules/cmms/zgloszenia/edit.php
+  - /modules/mes/konfiguracja/grupy_zasobow/edit.php
+struktura_path
+  - /api/structure/info.php
+  - /modules/cmms/konfiguracja/zasady_przydzialu/edit.php
+null
+  - /api/structure/tree.php
+  - /modules/cmms/zgloszenia/show.php
+hasaccess
+  - /includes/authz.php
+  - /includes/layout/sidebar.php
+string
+  - /includes/authz.php
+  - /modules/administracja/uzytkownicy/edit_permissions.php
+  - /modules/cmms/konfiguracja/zasady_przydzialu/list.php
+__
+  - /includes/i18n.php
+  - /init.php
+cmms_resolve_workflow
+  - /modules/cmms/konfiguracja/assigments/assignments_list.php
+  - /modules/cmms/konfiguracja/workflows/_resolver_test.php
+normalizehexcolor
+  - /modules/cmms/konfiguracja/element/edit.php
+  - /modules/cmms/konfiguracja/mpk_linia/edit.php
+  - /modules/cmms/konfiguracja/statusy/status_edit.php
+  - /modules/cmms/konfiguracja/typ_zasobu/edit.php
+logerror
+  - /modules/cmms/konfiguracja/grupy/delete.php
+  - /modules/cmms/konfiguracja/grupy/edit.php
+  - /modules/cmms/konfiguracja/zasady_przydzialu/edit.php
+  - /modules/cmms/konfiguracja/zgloszenia_podtyp/edit.php
+  - /modules/cmms/konfiguracja/zgloszenia_typ/edit.php
+int
+  - /modules/cmms/struktura/drzewo/ajax/zapisz_drzewo.php
+  - /modules/cmms/struktura/drzewo/edit.php
+h
+  - /modules/cmms/zgloszenia/edit.php
+  - /modules/cmms/zgloszenia/list.php
+  - /modules/cmms/zgloszenia/show.php
+currentuserid
+  - /modules/cmms/zgloszenia/edit.php
+  - /modules/cmms/zgloszenia/list.php
+  - /modules/cmms/zgloszenia/upload.php
+cmms_struct_path
+  - /modules/cmms/zgloszenia/edit.php
+  - /modules/cmms/zgloszenia/show.php
